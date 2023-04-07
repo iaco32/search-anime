@@ -1,7 +1,6 @@
 <template>
     <form @submit.prevent="searchAnime">
-        <input id="search-input" type="text" v-model.trim="searchQuery"
-            placeholder="Enter title to search (e.g: 'Naruto')..." />
+        <input id="search-input" type="text" v-model.trim="searchQuery" placeholder="Enter title (e.g: 'Naruto')" />
         <button @click="searchAnime">Search</button>
     </form>
     <div class="anime-search-container">
@@ -17,7 +16,18 @@
                     <div class="anime-summary">
                         <h2>{{ anime.title.romaji }}</h2>
 
-                        <p v-html="anime.description"></p>
+                        <transition name="fade">
+                            <p v-if="!isExpanded[index]" v-html="shortText(anime.description)"
+                                :class="shouldShowButton(anime.description) ? `fade-text` : `''`"></p>
+                            <p v-else v-html="anime.description"></p>
+                        </transition>
+
+                        <p>
+                            <button v-if="shouldShowButton(anime.description)"
+                                @click="isExpanded[index] = !isExpanded[index]">
+                                {{ isExpanded[index] ? 'Collapse' : 'Read more...' }}
+                            </button>
+                        </p>
                         <p v-if="anime.nextAiringEpisode"><strong>
                                 Next Episode Number:</strong> {{ anime.nextAiringEpisode.episode }} at ({{
                                     anime.nextAiringEpisode.airingAt
@@ -48,6 +58,33 @@ const singleAnime = ref<Anime | null>(null);
 const loading = ref(false);
 const error = ref("");
 const noAnimeFound = ref(false);
+
+function initializeIsExpanded(animeList: Ref<Anime[]>) {
+    return animeList.value.reduce<Record<number, boolean>>((acc, _, index) => {
+        acc[index] = false;
+        return acc;
+    }, {});
+}
+
+const isExpanded = ref(initializeIsExpanded(animeList));
+
+const shortText = (text: string) => {
+    if (text == null) {
+        return false;
+    }
+
+    const lines = text.split('. ');
+    return lines.slice(0, 3).join('. ');
+};
+
+const shouldShowButton = (paragraph: string) => {
+    // const lines = paragraph.split('\n');
+    if (paragraph == null) {
+        return false;
+    }
+    const lines = paragraph.split('. ');
+    return lines.length > 3;
+};
 
 const pageQuery = `
     query ($search: String) {

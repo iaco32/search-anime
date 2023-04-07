@@ -14,11 +14,13 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/* ::start Generic Style */
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -26,38 +28,39 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.8em;
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+input {
+  padding: 0.625rem;
+  border: 0.125rem solid #f1356d;
+  border-radius: 0.25rem;
+  margin-right: 0.625rem;
+  font-size: 1rem;
+  width: 25rem;
+  max-width: 100%;
 }
 
-.card {
-  padding: 2em;
+button {
+  padding: 0.625rem;
+  background-color: #f1356d;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 1rem;
 }
+
+button:hover {
+  background-color: #d12d5c;
+}
+
 
 #app {
   max-width: 1280px;
@@ -65,6 +68,83 @@ button:focus-visible {
   padding: 2rem;
   text-align: center;
 }
+
+/* ::end Generic Style */
+
+/* ::start Anime Search style */
+form {
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.search-type input {
+  width: auto;
+  margin-left: 2rem;
+  font-size: 1rem;
+}
+
+.search-type input[type=radio] {
+  position: relative;
+  appearance: none;
+  top: 0.4rem;
+  border-radius: 50%;
+}
+
+.search-type input[type=radio]:checked {
+  background-color: #f1356d;
+}
+
+.anime-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.25rem;
+}
+
+.anime-details {
+  margin-top: 1.25rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  border: 0.15rem solid #f1356d;
+  border-radius: 1rem;
+}
+
+.anime-image {
+  justify-content: start;
+}
+
+.anime-image img {
+  width: 12.5rem;
+  height: 18.75rem;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  margin-right: 1.25rem;
+}
+
+.anime-summary h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.625rem;
+  color: #f1356d;
+}
+
+.anime-summary p {
+  font-size: 1.125rem;
+  margin-bottom: 0.625rem;
+  text-align: justify;
+}
+
+.anime-summary strong {
+  color: #f1356d;
+}
+
+/* ::end Anime Search style */
 
 @media (prefers-color-scheme: light) {
   :root {

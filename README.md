@@ -1,18 +1,55 @@
-# Vue 3 + TypeScript + Vite
+# Vue.js 3 Anime Search App
+This app allows users to search for anime using the AniList API. The app provides two search modes:
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+- Standard Search - returns a list of anime matching the search query
+- Single Search - returns a single anime matching the search query
 
-## Recommended IDE Setup
+## Installation
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- Clone this repository with the command: 
 
-## Type Support For `.vue` Imports in TS
+```bash
+git clone https://github.com/iaco32/search-anime.git
+```
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- Navigate into the project directory: 
+```bash
+cd search-anime
+```
+- Install dependencies with the command: 
+```bash
+npm install
+```
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- Run the development server with the command: 
+```bash
+npm run serve
+```
+- Run unit tests with the command:
+```bash
+npm run test
+```
+# Usage
+- Open the app in your web browser: http://localhost:5173
+- Enter an anime title in the search box (e.g: Naruto)
+- Choose search mode: Standard Search or Single Search
+- Click the "Search" button
+- Results will be displayed on the screen
+- If you choose "Standard Search" you will see a list of results with one or more titles based on the name entered.
+- If you choose "Single Search" you will see only one result
+- If you do not enter anything and click on the "Search" button (or you get an error from the server), you will see an error message
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+# Technical Details
+This app was built with the following tools and technologies:
+
+- Vue.js 3 with Composition API and script setup
+- TypeScript
+- CSS styles
+- AniList API
+## API Documentation
+- https://anilist.gitbook.io/anilist-apiv2-docs/
+- GraphiQL explorer: https://anilist.co/graphiql
+- Interactive documentation: https://anilist.github.io/ApiV2-GraphQL-Docs/
+
+# Credits
+This app was created by Donato Iacoviello.

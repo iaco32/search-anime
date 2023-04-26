@@ -1,89 +1,75 @@
 <template>
-    <div>
-        <form @submit.prevent="searchAnime">
-            <input id="search-input" type="text" v-model.trim="searchQuery" placeholder="Enter title (e.g: 'Naruto')" />
-            <button @click="searchAnime">Search</button>
-        </form>
-        <div class="search-type">
-            <label>
-                <input id="standard-radio" type="radio" value="standard" v-model="searchType"> Standard Search
-            </label>
-            <label>
-                <input id="precise-radio" type="radio" value="precise" v-model="searchType"> Single Search
-            </label>
-        </div>
-        <div class="anime-search-container">
-            <div v-if="noAnimeFound" class="error-message">No anime found.</div>
-            <div v-else-if="loading" class="loading-spinner"></div>
-            <div v-else-if="error" class="error-message">{{ error }}</div>
-            <div v-else-if="animeList.length">
-                <div v-for="(anime, index) in animeList" :key="index" class="anime-details">
-                    <div>
-                        <div class="anime-image">
-                            <img :src="anime.coverImage.large" :alt="anime.title.romaji" />
-                        </div>
-                        <div class="anime-summary">
-                            <h2>{{ anime.title.romaji }}</h2>
-
-                            <transition name="fade">
-                                <!-- here it used the v-html directive instead of the standard {{  }} 
-                            because sometimes the anilist returns html formatted text
-                            instead of simple text -->
-                                <p v-if="!isExpanded[index]" v-html="shortText(anime.description)"
-                                    :class="shouldShowButton(anime.description) ? `fade-text` : `''`"></p>
-                                <p v-else v-html="anime.description"></p>
-                            </transition>
-
-                            <p>
-                                <button v-if="shouldShowButton(anime.description)"
-                                    @click="isExpanded[index] = !isExpanded[index]">
-                                    {{ isExpanded[index] ? 'Collapse' : 'Read more...' }}
-                                </button>
-                            </p>
-                            <p v-if="anime.nextAiringEpisode"><strong>
-                                    Next Episode Number:</strong> {{ anime.nextAiringEpisode.episode }} at {{
-                                        anime.nextAiringEpisode.airingAt
-                                        ?
-                                        new
-                                            Date(anime.nextAiringEpisode.airingAt *
-                                                1000).toLocaleString("de-DE").replace(",", " - ") : "" }}
-                            </p>
-                            <p v-else class="anime-airing"><strong>The anime finished airing.</strong> The last episode was
-                                aired on: {{
-                                    anime.endDate?.year ? formatDate(anime.endDate) : "Unknown" }}</p>
-                            <p><strong>Average Rating Score:</strong> {{ anime.averageScore }}/100</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div v-else-if="singleAnime">
-                <div class="anime-details">
+    <div class="anime-search-container">
+        <div v-if="noAnimeFound" class="error-message">No anime found.</div>
+        <div v-else-if="loading" class="loading-spinner"></div>
+        <div v-else-if="error" class="error-message">{{ error }}</div>
+        <div v-else-if="animeList.length">
+            <div v-for="(anime, index) in animeList" :key="index" class="anime-details">
+                <div>
                     <div class="anime-image">
-                        <img :src="singleAnime.coverImage.large" :alt="singleAnime.title.romaji" />
+                        <img :src="anime.coverImage.large" :alt="anime.title.romaji" />
                     </div>
                     <div class="anime-summary">
-                        <h2>{{ singleAnime.title.romaji }}</h2>
+                        <h2>{{ anime.title.romaji }}</h2>
 
                         <transition name="fade">
-                            <p v-if="!isExpanded[0]" v-html="shortText(singleAnime.description)"
-                                :class="shouldShowButton(singleAnime.description) ? `fade-text` : `''`"></p>
-                            <p v-else v-html="singleAnime.description"></p>
+                            <!-- here it used the v-html directive instead of the standard {{  }} 
+                            because sometimes the anilist returns html formatted text
+                            instead of simple text -->
+                            <p v-if="!isExpanded[index]" v-html="shortText(anime.description)"
+                                :class="shouldShowButton(anime.description) ? `fade-text` : `''`"></p>
+                            <p v-else v-html="anime.description"></p>
                         </transition>
 
-                        <p><button v-if="shouldShowButton(singleAnime.description)" @click="isExpanded[0] = !isExpanded[0]">
-                                {{ isExpanded[0] ? 'Collapse' : 'Read more...' }}
-                            </button></p>
-
-                        <p v-if="singleAnime.nextAiringEpisode"><strong>
-                                Next Episode Number:</strong> {{ singleAnime.nextAiringEpisode.episode }} at {{
-                                    singleAnime.nextAiringEpisode.airingAt ? new Date(singleAnime.nextAiringEpisode.airingAt *
-                                        1000).toLocaleString("de-DE").replace(",", " - ") : "" }}
+                        <p>
+                            <button v-if="shouldShowButton(anime.description)"
+                                @click="isExpanded[index] = !isExpanded[index]">
+                                {{ isExpanded[index] ? 'Collapse' : 'Read more...' }}
+                            </button>
+                        </p>
+                        <p v-if="anime.nextAiringEpisode"><strong>
+                                Next Episode Number:</strong> {{ anime.nextAiringEpisode.episode }} at {{
+                                    anime.nextAiringEpisode.airingAt
+                                    ?
+                                    new
+                                        Date(anime.nextAiringEpisode.airingAt *
+                                            1000).toLocaleString("de-DE").replace(",", " - ") : "" }}
                         </p>
                         <p v-else class="anime-airing"><strong>The anime finished airing.</strong> The last episode was
                             aired on: {{
-                                singleAnime.endDate?.year ? formatDate(singleAnime.endDate) : "Unknown" }}</p>
-                        <p><strong>Average Rating Score:</strong> {{ singleAnime.averageScore }}/100</p>
+                                anime.endDate?.year ? formatDate(anime.endDate) : "Unknown" }}</p>
+                        <p><strong>Average Rating Score:</strong> {{ anime.averageScore }}/100</p>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div v-else-if="singleAnime">
+            <div class="anime-details">
+                <div class="anime-image">
+                    <img :src="singleAnime.coverImage.large" :alt="singleAnime.title.romaji" />
+                </div>
+                <div class="anime-summary">
+                    <h2>{{ singleAnime.title.romaji }}</h2>
+
+                    <transition name="fade">
+                        <p v-if="!isExpanded[0]" v-html="shortText(singleAnime.description)"
+                            :class="shouldShowButton(singleAnime.description) ? `fade-text` : `''`"></p>
+                        <p v-else v-html="singleAnime.description"></p>
+                    </transition>
+
+                    <p><button v-if="shouldShowButton(singleAnime.description)" @click="isExpanded[0] = !isExpanded[0]">
+                            {{ isExpanded[0] ? 'Collapse' : 'Read more...' }}
+                        </button></p>
+
+                    <p v-if="singleAnime.nextAiringEpisode"><strong>
+                            Next Episode Number:</strong> {{ singleAnime.nextAiringEpisode.episode }} at {{
+                                singleAnime.nextAiringEpisode.airingAt ? new Date(singleAnime.nextAiringEpisode.airingAt *
+                                    1000).toLocaleString("de-DE").replace(",", " - ") : "" }}
+                    </p>
+                    <p v-else class="anime-airing"><strong>The anime finished airing.</strong> The last episode was
+                        aired on: {{
+                            singleAnime.endDate?.year ? formatDate(singleAnime.endDate) : "Unknown" }}</p>
+                    <p><strong>Average Rating Score:</strong> {{ singleAnime.averageScore }}/100</p>
                 </div>
             </div>
         </div>
@@ -92,15 +78,25 @@
 
 <script setup lang="ts">
 import { ref, Ref } from "vue";
+import { watch } from "vue";
+import { useSearchStore } from "../store/SearchStore"
+import { storeToRefs } from 'pinia'
 import { Anime } from "../types/AniListInterface";
 
-const searchQuery = ref("");
-const searchType = ref("standard");
 const animeList = ref<Anime[]>([]);
 const singleAnime = ref<Anime | null>(null);
 const loading = ref(false);
 const error = ref("");
 const noAnimeFound = ref(false);
+
+const store = useSearchStore();
+const { searchTitle, typeSearch } = storeToRefs(store);
+const { newSearch } = store;
+
+// Watching if there are changes in the store
+watch([searchTitle, typeSearch], () => {
+    searchAnime();
+});
 
 // this fuction returns a new object where each index of the array is set to false to show the "Read more..." button on a long text in a standard search 
 function initializeIsExpanded(animeList: Ref<Anime[]>) {
@@ -185,7 +181,7 @@ query ($search: String) {Media(search: $search, type: ANIME) {
 
 
 const searchAnime = async () => {
-    if (searchQuery.value.trim() === "") {
+    if (searchTitle.value.trim() === "") {
         error.value = "Please enter a search query.";
         return;
     }
@@ -197,7 +193,7 @@ const searchAnime = async () => {
     isExpanded.value = initializeIsExpanded(animeList);
 
     try {
-        if (searchType.value === "standard") {
+        if (typeSearch.value === "standard") {
             const result = await searchAnilist();
             animeList.value = result;
         } else {
@@ -223,7 +219,7 @@ const searchAnilist = async (): Promise<Anime[]> => {
         },
         body: JSON.stringify({
             query: pageQuery,
-            variables: { search: searchQuery.value }
+            variables: { search: searchTitle.value }
         }),
     });
 
@@ -246,7 +242,7 @@ const searchSingleAnilist = async (): Promise<Anime> => {
         },
         body: JSON.stringify({
             query: singleQuery,
-            variables: { search: searchQuery.value }
+            variables: { search: searchTitle.value }
         }),
     });
 

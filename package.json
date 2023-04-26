@@ -12,6 +12,7 @@
   "dependencies": {
     "@vue/test-utils": "^2.0.0-rc.18",
     "happy-dom": "^9.1.9",
+    "pinia": "^2.0.35",
     "vitest": "^0.29.8",
     "vue": "^3.2.47"
   },

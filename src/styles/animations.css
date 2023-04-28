@@ -1,5 +1,5 @@
 .switch-toggle-checked {
-    transform: translateX(calc(3rem * 0.52)) scale(1.14, 1.05) !important;
+    transform: translateX(calc(3rem * 0.52)) scale(1.12, 1.03) !important;
     /* transform: scale(1.5, 1.5) !important; */
 }
 

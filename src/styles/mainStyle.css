@@ -120,7 +120,7 @@ button:hover {
   position: absolute;
   background-color: var(--toggle-switch-color);
   border-radius: 50%;
-  top: calc(3rem * 0.14);
+  top: calc(3rem * 0.13);
   left: calc(3rem * 0.15);
   height: calc(3rem * 0.47);
   width: calc(3rem * 0.46);

@@ -12,6 +12,19 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  --toggle-switch-color: #242424;
+  --toggle-background-color: #f1356d;
+  --input-background-color: #242424;
+  --input-text-color: #ffffff;
+}
+
+:root.light {
+  color: #242424;
+  background-color: #ffffff;
+  --toggle-switch-color: #ffffff;
+  --toggle-background-color: #222;
+  --input-background-color: #ffffff;
+  --input-text-color: #242424;
 }
 
 /* ::start Generic Style */
@@ -37,11 +50,30 @@ h1 {
   line-height: 1.1;
 }
 
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 0 2rem 0;
+  text-align: center;
+}
+/* ::end Generic Style */
+
+
+
+
+/* ::start Search style */
+form {
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
 input {
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
   padding: 0.625rem;
   border: 0.125rem solid #f1356d;
   border-radius: 0.25rem;
-  margin-right: 0.625rem;
+  margin-right: 0.6rem;
   font-size: 1rem;
   width: 11rem;
   max-width: 100%;
@@ -61,25 +93,39 @@ button:hover {
   background-color: #d12d5c;
 }
 
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem 0 2rem 0;
-  text-align: center;
-}
-
-/* ::end Generic Style */
-
-/* ::start Anime Search style */
-form {
-  align-items: center;
-  margin-bottom: 1.25rem;
-}
-
 .search-type input {
   width: auto;
   font-size: 1rem;
+}
+
+.switch-checkbox {
+  display: none;
+}
+
+.switch-label {
+  top: 0.2rem;
+  margin-right: 0.6rem;
+  background: var(--toggle-background-color);
+  border: 0.125rem solid #f1356d;
+  border-radius: 4rem;
+  cursor: pointer;
+  font-size: calc(4rem * 0.3);
+  position: relative;
+  padding: calc(4rem * 0.1);
+  transition: background 0.5s ease;
+  z-index: 1;
+}
+
+.switch-toggle {
+  position: absolute;
+  background-color: var(--toggle-switch-color);
+  border-radius: 50%;
+  top: calc(4rem * 0.1);
+  left: calc(4rem * 0.1);
+  height: calc(4rem * 0.4);
+  width: calc(4rem * 0.4);
+  transform: translateX(0);
+  transition: transform 0.3s ease, background-color 0.5s ease;
 }
 
 .search-type input[type=radio] {
@@ -92,7 +138,9 @@ form {
 .search-type input[type=radio]:checked {
   background-color: #f1356d;
 }
+/* ::end Search style */
 
+/* ::start Anime Detail style */
 .anime-search-container {
   display: flex;
   flex-direction: column;
@@ -142,20 +190,17 @@ form {
 .anime-summary strong {
   color: #f1356d;
 }
-
-/* ::end Anime Search style */
+/* ::end Anime Detail style */
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #242424;
     background-color: #ffffff;
   }
   a:hover {
     color: #747bff;
   }
-  button {
-    background-color: #f9f9f9;
-  }
+
 }
 
 @media screen and (min-width: 580px) {

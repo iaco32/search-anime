@@ -7,7 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import Anilist from "./components/AnimeSearch.vue"
 import Search from "./components/Search.vue"
+import Anilist from "./components/AnimeContainer.vue"
+
 
 </script>

@@ -121,9 +121,9 @@ button:hover {
   background-color: var(--toggle-switch-color);
   border-radius: 50%;
   top: calc(3rem * 0.12);
-  left: calc(3rem * 0.155);
-  height: calc(3rem * 0.472);
-  width: calc(3rem * 0.462);
+  left: calc(3rem * 0.152);
+  height: calc(3rem * 0.47);
+  width: calc(3rem * 0.464);
   transform: translateX(0);
   transition: transform 0.3s ease, background-color 0.5s ease;
 }

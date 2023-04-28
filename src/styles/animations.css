@@ -1,6 +1,6 @@
+
 .switch-toggle-checked {
     transform: translateX(calc(3rem * 0.52)) scale(1.1, 1.06) !important;
-    /* transform: scale(1.5, 1.5) !important; */
 }
 
 .loading-spinner {

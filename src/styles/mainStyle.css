@@ -212,4 +212,16 @@ input {
 .search-type input {
   margin-left: 2rem;
 }  
+
+.switch-toggle {
+  position: absolute;
+  background-color: var(--toggle-switch-color);
+  border-radius: 50%;
+  top: calc(3rem * 0.16);
+  left: calc(4rem * 0.13);
+  height: calc(3rem * 0.49);
+  width: calc(3rem * 0.5);
+  transform: translateX(0);
+  transition: transform 0.3s ease, background-color 0.5s ease;
+}
 }
